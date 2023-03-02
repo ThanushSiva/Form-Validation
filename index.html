@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Validation</title>
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #c2c2c2;
+      }
+      .card {
+        background-color: #fff;
+        border-radius: 2rem;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        padding: 2rem;
+      }
+      input {
+        padding: 0.4em 1em;
+        border: 1px solid #c2c2c2;
+        outline: 0;
+      }
+      .button {
+        outline: 0;
+        padding: 0.4em 1em;
+        border: 0;
+        background-color: #c2c2c2;
+      }
+      p {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <form action="#" onsubmit="return validate()">
+        <input type="text" name="username" placeholder="username" /><br />
+        <input type="text" name="email" placeholder="email" /><br />
+        <input type="password" name="password" placeholder="password" /><br />
+        <input
+          type="password"
+          name="confirmPassword"
+          placeholder="confirm password"
+        /><br />
+        <p></p>
+        <input class="button" type="submit" value="SUBMIT" />
+      </form>
+    </div>
+
+    <script>
+      const form = document.querySelector("form");
+      const p = document.querySelector("p");
+      const reg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+      function validate() {
+        if (
+          form.username.value.length <= 5 ||
+          form.username.value.length > 10
+        ) {
+          p.textContent = "username must be between 6 - 10 chars";
+          return false;
+        } else if (!reg.test(form.email.value)) {
+          p.textContent = "email is not valid";
+          return false;
+        } else if (
+          form.password.value.length <= 5 ||
+          form.password.value.length > 10
+        ) {
+          p.textContent = "password must be between 6 - 10 chars";
+          return false;
+        } else if (form.password.value !== form.confirmPassword.value) {
+          p.textContent = "password is not valid";
+          return false;
+        } else {
+          return true;
+        }
+      }
+    </script>
+  </body>
+</html>
